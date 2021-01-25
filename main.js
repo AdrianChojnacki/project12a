@@ -1,28 +1,15 @@
-const arr = [34, 219, 132, 65, 45, 657, 234];
+const input = document.querySelector(`input`);
+const ul = document.querySelector(`ul`);
+const liAll = document.querySelectorAll(`li`);
 
-//------------------------------------------------------- ZWRACAJĄCE NOWĄ TABLICĘ ---//
+const search = (e) => {
+  const searchText = e.target.value.toLowerCase();
 
-// REDUCE
-const addAll = arr.reduce((a, b) => a + b);
-const subAll = arr.reduce((a, b) => a - b);
-const multAll = arr.reduce((a, b) => a * b);
-const divAll = arr.reduce((a, b) => a / b);
+  ul.textContent = "";
 
-// FILTER
-const oddNumbers = arr.filter((number) => number % 2);
-const evenNumbers = arr.filter((number) => !(number % 2));
-const numbersBiggerThan100 = arr.filter((number) => number > 100);
-const secretNumber = arr.filter((number) => number - 1 === 44);
+  let tasks = [...liAll];
+  tasks = tasks.filter((task) => task.textContent.toLowerCase().includes(searchText));
+  tasks.forEach((task) => ul.appendChild(task));
+};
 
-// MAP
-const double = arr.map((number) => number * 2);
-const people = arr.map((number) => `${number} osób`);
-
-//------------------------------------------------------- MODYFIKUJĄCE ISTNIEJĄCĄ TABLICĘ ---//
-
-// FOR EACH
-// arr.forEach((number, index) => (arr[index] = number * 2));
-
-// SORT
-// arr.sort((a, b) => a - b);
-// arr.sort((a, b) => b - a);
+input.addEventListener(`input`, search);

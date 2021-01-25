@@ -1,15 +1,32 @@
+const form = document.querySelector(`form`);
 const input = document.querySelector(`input`);
+const taskNumber = document.querySelector(`h1 span`);
 const ul = document.querySelector(`ul`);
-const liAll = document.querySelectorAll(`li`);
+const listItems = document.querySelectorAll(`li`);
 
-const search = (e) => {
-  const searchText = e.target.value.toLowerCase();
+const removeTask = (e) => {
+  e.target.parentNode.remove();
 
-  ul.textContent = "";
-
-  let tasks = [...liAll];
-  tasks = tasks.filter((task) => task.textContent.toLowerCase().includes(searchText));
-  tasks.forEach((task) => ul.appendChild(task));
+  const liItems = document.querySelectorAll(`li.task`).length;
+  taskNumber.textContent = liItems;
 };
 
-input.addEventListener(`input`, search);
+const addTask = (e) => {
+  e.preventDefault();
+  const taskTitle = input.value;
+
+  if (taskTitle === "") return;
+
+  const task = document.createElement(`li`);
+  task.innerHTML = `${taskTitle} <button>Usuń</button>`;
+  task.className = "task";
+  task.querySelector(`button`).addEventListener(`click`, removeTask);
+  ul.appendChild(task);
+
+  input.value = "";
+
+  const liItems = document.querySelectorAll(`li.task`).length;
+  taskNumber.textContent = liItems;
+};
+
+form.addEventListener(`submit`, addTask);

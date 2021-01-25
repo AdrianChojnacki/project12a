@@ -1,16 +1,28 @@
-// const strikeout = (e) => {
-//   e.target.classList.toggle("strikeout");
-// };
+const arr = [34, 219, 132, 65, 45, 657, 234];
 
-// document.querySelectorAll(`li`).forEach((li) => li.addEventListener(`click`, strikeout));
+//------------------------------------------------------- ZWRACAJĄCE NOWĄ TABLICĘ ---//
 
-const removeTask = (e) => {
-  //   e.target.parentNode.classList.add("strikeout");
-  //   e.target.remove();
-  const index = e.target.dataset.key;
-  console.log(index);
-  document.querySelector(`[data-key="${index}"]`).classList.add("strikeout");
-  e.target.remove();
-};
+// REDUCE
+const addAll = arr.reduce((a, b) => a + b);
+const subAll = arr.reduce((a, b) => a - b);
+const multAll = arr.reduce((a, b) => a * b);
+const divAll = arr.reduce((a, b) => a / b);
 
-document.querySelectorAll(`button`).forEach((button) => button.addEventListener(`click`, removeTask));
+// FILTER
+const oddNumbers = arr.filter((number) => number % 2);
+const evenNumbers = arr.filter((number) => !(number % 2));
+const numbersBiggerThan100 = arr.filter((number) => number > 100);
+const secretNumber = arr.filter((number) => number - 1 === 44);
+
+// MAP
+const double = arr.map((number) => number * 2);
+const people = arr.map((number) => `${number} osób`);
+
+//------------------------------------------------------- MODYFIKUJĄCE ISTNIEJĄCĄ TABLICĘ ---//
+
+// FOR EACH
+// arr.forEach((number, index) => (arr[index] = number * 2));
+
+// SORT
+// arr.sort((a, b) => a - b);
+// arr.sort((a, b) => b - a);

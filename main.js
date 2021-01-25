@@ -1,18 +1,34 @@
+const toDoList = [];
+
 const form = document.querySelector(`form`);
 const input = document.querySelector(`input`);
 const taskNumber = document.querySelector(`h1 span`);
 const ul = document.querySelector(`ul`);
-const listItems = document.querySelectorAll(`li`);
+
+const renderList = () => {
+  ul.textContent = "";
+
+  toDoList.forEach((toDoElement, key) => {
+    toDoElement.dataset.key = key;
+    ul.appendChild(toDoElement);
+  });
+
+  taskNumber.textContent = document.querySelectorAll(`li.task`).length;
+};
 
 const removeTask = (e) => {
   e.target.parentNode.remove();
 
-  const liItems = document.querySelectorAll(`li.task`).length;
-  taskNumber.textContent = liItems;
+  const index = e.target.parentNode.dataset.key;
+
+  toDoList.splice(index, 1);
+
+  renderList();
 };
 
 const addTask = (e) => {
   e.preventDefault();
+
   const taskTitle = input.value;
 
   if (taskTitle === "") return;
@@ -21,12 +37,14 @@ const addTask = (e) => {
   task.innerHTML = `${taskTitle} <button>Usuń</button>`;
   task.className = "task";
   task.querySelector(`button`).addEventListener(`click`, removeTask);
-  ul.appendChild(task);
+
+  toDoList.push(task);
+
+  //   ul.appendChild(task);
+
+  renderList();
 
   input.value = "";
-
-  const liItems = document.querySelectorAll(`li.task`).length;
-  taskNumber.textContent = liItems;
 };
 
 form.addEventListener(`submit`, addTask);
